@@ -8,7 +8,7 @@
 	export default{
 		data(){
 			return{
-				titulo:'Hola soy Felipe Gonzalez'
+				titulo:'Hola soy Felipe Gonzalez p'
 			}
 		}
 	}
