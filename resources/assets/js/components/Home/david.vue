@@ -9,6 +9,7 @@
 		data(){
 			return{
 				titulo:'Hola soy Deivid Moon vv'
+				
 			}
 		}
 	}
