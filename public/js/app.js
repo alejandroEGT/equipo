@@ -55799,13 +55799,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			titulo: 'Hola soy Deivid Moon vv'
-
+			espera: true,
+			ver: false,
+			titulo: 'Hola soy David Luna trolo',
+			titulo2: 'chao ya no soy david',
+			titulo3: 'kkck',
+			arreglo: {}
 		};
+	},
+	created: function created() {
+
+		this.api();
+	},
+
+
+	methods: {
+		get: function get() {
+			alert(this.titulo3);
+		},
+		api: function api() {
+			var _this = this;
+
+			axios.get("api/david").then(function (rest) {
+				_this.arreglo = rest.data;
+				_this.espera = false;
+			});
+		}
 	}
 });
 
@@ -55817,9 +55855,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("h3", [_vm._v(_vm._s(_vm.titulo))])])
+  return _c(
+    "div",
+    [
+      _c("h3", [_vm._v(_vm._s(_vm.titulo))]),
+      _vm._v(" "),
+      _c("h1", [_vm._v(_vm._s(_vm.titulo2))]),
+      _vm._v(" "),
+      _c(
+        "el-button",
+        {
+          on: {
+            click: function($event) {
+              _vm.ver = true
+            }
+          }
+        },
+        [_vm._v("click")]
+      ),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _vm.ver
+        ? _c(
+            "table",
+            {
+              directives: [
+                {
+                  name: "loading",
+                  rawName: "v-loading",
+                  value: _vm.espera,
+                  expression: "espera"
+                }
+              ],
+              staticClass: "table table-borded"
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._l(_vm.arreglo, function(a) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(a.nombre))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(a.apellido))])
+                ])
+              })
+            ],
+            2
+          )
+        : _vm._e()
+    ],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", [_c("strong", [_vm._v("Nombre")])]),
+      _vm._v(" "),
+      _c("td", [_c("strong", [_vm._v("Apellido")])])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
