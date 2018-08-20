@@ -8,7 +8,7 @@
 	export default{
 		data(){
 			return{
-				titulo:'Hola soy David Luna'
+				titulo:'Hola soy David Luna desde mi rama jano'
 			}
 		}
 	}
