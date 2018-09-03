@@ -25,7 +25,7 @@ Route::group(['middleware' => 'jwt.auth'], function(){
 
    require 'url/david_api.php';
    require 'url/mexi_api.php';
-   require 'url/bryan_api.php';
+   require 'url/alejandro_api.php';
    require 'url/felipe_api.php';
    //require 'david_api.php';
 

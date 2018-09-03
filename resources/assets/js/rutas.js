@@ -6,7 +6,6 @@ import NotFound from './components/404.vue'
 import Master from "./components/master";
 import Home from "./components/Home/Home";
 import Index from "./components/Home/Index";
-//import Chat from "./components/Home/chat";
 
 let routes = [
 {
@@ -32,7 +31,6 @@ let routes = [
     meta: {auth: true},
     children: [
         { path: '/index', component: Index, name: 'Index' },
-        //{ path: '/chat', component: Chat, name: 'Chat' },
     ]
 },
 {
