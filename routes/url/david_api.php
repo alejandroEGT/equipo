@@ -1,5 +1,3 @@
 <?php 
 
-// Route::get('route', function(){
-	
-// });
+ Route::get('david','davidTareaController@guardarTarea');

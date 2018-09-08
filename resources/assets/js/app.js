@@ -5,7 +5,7 @@ import VueRouter from 'vue-router'
 import routes from './rutas';
 import routes_david from './routes/rutas_david'
 import routes_mexi from './routes/rutas_bryan_montecino'
-import routes_bryan from './routes/rutas_bryan_vidal'
+import routes_jano from './routes/rutas_alejandro_godoy'
 import routes_felipe from './routes/rutas_felipe.js'
 
 Vue.use(VueRouter)
@@ -15,10 +15,10 @@ Vue.router = new VueRouter({
     ...routes,
     ...routes_david,
     ...routes_mexi,
-    ...routes_bryan,
+    ...routes_jano,
     ...routes_felipe
   ],
-  mode: 'history'
+  //mode: 'history'
 });
 let AppLayout= require('./components/ExampleComponent');//Vista Suprema
 //ELEMENT UI.
