@@ -59,6 +59,10 @@
 							<tr v-for="c in mis_colabo">
 								<td>{{ c.nombres+" "+c.apellidos }}</td>
 								<td>{{ c.email }}</td>
+								<td>
+									<el-button size="mini" type="warning" icon="el-icon-star-off" circle></el-button>
+  									<el-button @click="delete_colaborador(c.id)" size="mini" type="danger" icon="el-icon-delete" circle></el-button>
+								</td>
 							</tr>
 						</table>
 
@@ -178,6 +182,17 @@
 							this.traer_proyecto();
 						}
 				});
+			},
+			delete_colaborador($colaborador){
+				axios.post('api/quitar_colaborador',{ 
+					colaborador: $colaborador,
+					id_proyecto: this.id_proyecto
+				}).then((res)=>{
+					this.traer_todos_colaboradores();
+					this.listar_mis_colaboradores();
+					this.colaborador = null;
+					this.contar_colabo();
+				});	
 			}
 			
 		},
