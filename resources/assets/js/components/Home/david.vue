@@ -17,6 +17,7 @@
 			</tr>
 		</table>
 	</div>
+
 </template>
 
 <script>
@@ -29,6 +30,7 @@
 							titulo2:'chao ya no soy david',
 							titulo3:'kkck',
 							arreglo:{}
+
 						}
 					},
 
