@@ -59,6 +59,10 @@
 							<tr v-for="c in mis_colabo">
 								<td>{{ c.nombres+" "+c.apellidos }}</td>
 								<td>{{ c.email }}</td>
+								<td>
+									<el-button size="mini" type="warning" icon="el-icon-star-off" circle></el-button>
+  									<el-button @click="delete_colaborador(c.id)" size="mini" type="danger" icon="el-icon-delete" circle></el-button>
+								</td>
 							</tr>
 						</table>
 
@@ -85,9 +89,9 @@
 			  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			    <div class="navbar-nav">
 			     
-			      <router-link :to="{path:'/proyecto/'+id_proyecto+'/tareas'}" class="btn btn-link">		Tareas
+			      <router-link :to="{path:'/proyecto/'+id_proyecto+'/tareas'}" class="btn btn-default btn-lg active">		Tareas
 			      </router-link>
-			      <router-link :to="{path:'/proyecto/'+id_proyecto+'/flujo'}" class="btn btn-link">Flujo</router-link>
+			      <!--<router-link :to="{path:'/proyecto/'+id_proyecto+'/flujo'}" class="btn btn-link">Flujo</router-link>-->
 			     
 			    </div>
 			  </div>
@@ -178,6 +182,17 @@
 							this.traer_proyecto();
 						}
 				});
+			},
+			delete_colaborador($colaborador){
+				axios.post('api/quitar_colaborador',{ 
+					colaborador: $colaborador,
+					id_proyecto: this.id_proyecto
+				}).then((res)=>{
+					this.traer_todos_colaboradores();
+					this.listar_mis_colaboradores();
+					this.colaborador = null;
+					this.contar_colabo();
+				});	
 			}
 			
 		},

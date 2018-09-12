@@ -56161,12 +56161,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			titulo: 'Hola soy David Luna desde mi rama jano'
+			espera: true,
+			ver: false,
+			titulo: 'Hola soy David Luna trolo',
+			titulo2: 'chao ya no soy david',
+			titulo3: 'kkck',
+			arreglo: {}
+
 		};
+	},
+	created: function created() {
+
+		this.api();
+	},
+
+
+	methods: {
+		get: function get() {
+			alert(this.titulo3);
+		},
+		api: function api() {
+			var _this = this;
+
+			axios.get("api/david").then(function (rest) {
+				_this.arreglo = rest.data;
+				_this.espera = false;
+			});
+		}
 	}
 });
 
@@ -56178,9 +56219,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("h3", [_vm._v(_vm._s(_vm.titulo))])])
+  return _c(
+    "div",
+    [
+      _c("h3", [_vm._v(_vm._s(_vm.titulo))]),
+      _vm._v(" "),
+      _c("h1", [_vm._v(_vm._s(_vm.titulo2))]),
+      _vm._v(" "),
+      _c(
+        "el-button",
+        {
+          on: {
+            click: function($event) {
+              _vm.ver = true
+            }
+          }
+        },
+        [_vm._v("click")]
+      ),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _vm.ver
+        ? _c(
+            "table",
+            {
+              directives: [
+                {
+                  name: "loading",
+                  rawName: "v-loading",
+                  value: _vm.espera,
+                  expression: "espera"
+                }
+              ],
+              staticClass: "table table-borded"
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._l(_vm.arreglo, function(a) {
+                return _c("tr", [
+                  _c("td", [_vm._v(_vm._s(a.nombre))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(a.apellido))])
+                ])
+              })
+            ],
+            2
+          )
+        : _vm._e()
+    ],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", [_c("strong", [_vm._v("Nombre")])]),
+      _vm._v(" "),
+      _c("td", [_c("strong", [_vm._v("Apellido")])])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -56617,6 +56720,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 //import Autocomplete from 'vue2-autocomplete-js';
@@ -56702,6 +56809,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				if (res.data == "success") {
 					_this6.traer_proyecto();
 				}
+			});
+		},
+		delete_colaborador: function delete_colaborador($colaborador) {
+			var _this7 = this;
+
+			axios.post('api/quitar_colaborador', {
+				colaborador: $colaborador,
+				id_proyecto: this.id_proyecto
+			}).then(function (res) {
+				_this7.traer_todos_colaboradores();
+				_this7.listar_mis_colaboradores();
+				_this7.colaborador = null;
+				_this7.contar_colabo();
 			});
 		}
 	},
@@ -56900,7 +57020,36 @@ var render = function() {
                                   _vm._v(_vm._s(c.nombres + " " + c.apellidos))
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(c.email))])
+                                _c("td", [_vm._v(_vm._s(c.email))]),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  [
+                                    _c("el-button", {
+                                      attrs: {
+                                        size: "mini",
+                                        type: "warning",
+                                        icon: "el-icon-star-off",
+                                        circle: ""
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("el-button", {
+                                      attrs: {
+                                        size: "mini",
+                                        type: "danger",
+                                        icon: "el-icon-delete",
+                                        circle: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.delete_colaborador(c.id)
+                                        }
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
                               ])
                             })
                           ],
@@ -56957,23 +57106,12 @@ var render = function() {
                   _c(
                     "router-link",
                     {
-                      staticClass: "btn btn-link",
+                      staticClass: "btn btn-default btn-lg active",
                       attrs: {
                         to: { path: "/proyecto/" + _vm.id_proyecto + "/tareas" }
                       }
                     },
                     [_vm._v("\t\tTareas\n\t\t\t      ")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-link",
-                      attrs: {
-                        to: { path: "/proyecto/" + _vm.id_proyecto + "/flujo" }
-                      }
-                    },
-                    [_vm._v("Flujo")]
                   )
                 ],
                 1
@@ -57089,7 +57227,7 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(147)
 /* template */
 var __vue_template__ = __webpack_require__(148)
 /* template functional */
@@ -57130,7 +57268,70 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 147 */,
+/* 147 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			espera: true,
+			ver: false,
+			arreglo: {},
+			form: {}
+		};
+	},
+	created: function created() {
+
+		this.api();
+	},
+
+
+	methods: {
+		guardarTarea: function guardarTarea() {
+			console.log(this.form);
+		},
+		get: function get() {
+			alert(this.titulo3);
+		},
+		api: function api() {
+			var _this = this;
+
+			axios.get("api/david").then(function (rest) {
+				_this.arreglo = rest.data;
+				_this.espera = false;
+			});
+		}
+	}
+});
+
+/***/ }),
 /* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -57138,16 +57339,100 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c(
+        "el-form",
+        { staticClass: "demo-form-inline", attrs: { inline: true } },
+        [
+          _c("el-input", {
+            staticStyle: { width: "20%" },
+            attrs: { placeholder: "Nombre Tarea" },
+            model: {
+              value: _vm.form.nombre,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "nombre", $$v)
+              },
+              expression: "form.nombre"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-date-picker", {
+            attrs: {
+              type: "daterange",
+              align: "right",
+              "start-placeholder": "Fecha Inicio",
+              "end-placeholder": "Fecha Fin",
+              "default-value": "2018-9-01"
+            },
+            model: {
+              value: _vm.form.calendario,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "calendario", $$v)
+              },
+              expression: "form.calendario"
+            }
+          }),
+          _vm._v(" "),
+          _c("el-input", {
+            staticStyle: { width: "20%" },
+            attrs: { placeholder: "Horas estimadas" },
+            model: {
+              value: _vm.form.horas,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "horas", $$v)
+              },
+              expression: "form.horas"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "el-form-item",
+            [
+              _c(
+                "el-select",
+                {
+                  attrs: { placeholder: "Seleccione" },
+                  model: {
+                    value: _vm.form.estadoProyecto,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "estadoProyecto", $$v)
+                    },
+                    expression: "form.estadoProyecto"
+                  }
+                },
+                [
+                  _c("el-option", {
+                    attrs: { label: "En Desarrollo", value: "enDesarrollo" }
+                  }),
+                  _vm._v(" "),
+                  _c("el-option", {
+                    attrs: { label: "Terminada", value: "Terminada" }
+                  }),
+                  _vm._v(" "),
+                  _c("el-option", {
+                    attrs: { label: "No Iniciada", value: "noIniciada" }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("el-button", {
+            attrs: { type: "primary", icon: "el-icon-edit", circle: "" },
+            on: { click: _vm.guardarTarea }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("h4", [_vm._v("Tarea")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

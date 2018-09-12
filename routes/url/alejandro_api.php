@@ -10,3 +10,4 @@
  Route::get('mis_colaboradores/{id_proyecto}','ColaboradorController@mis_colaboradores');
  Route::post('agregar_colaborador','ColaboradorController@agregar_colaboradores');
  Route::post('cambiar_estado_proyecto','proyectoController@cambiar_estado_proyecto');
+ Route::post('quitar_colaborador','ColaboradorController@quitar_colaborador');

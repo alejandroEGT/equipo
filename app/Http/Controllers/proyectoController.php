@@ -25,6 +25,7 @@ class proyectoController extends Controller
             ])->join('colaborador as c','c.id_proyecto','proyecto.id')
             ->where('c.id_user', Auth::user()->id)
             ->where('proyecto.id_user','!=', Auth::user()->id)
+            ->where('c.delete','0')
             ->get();
 
         if (count($p) > 0 || count($o) > 0) {
