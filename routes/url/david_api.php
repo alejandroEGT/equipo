@@ -1,3 +1,7 @@
 <?php 
 
- Route::get('david','davidTareaController@guardarTarea');
+ Route::post('insertarTarea','davidTareaController@guardarTarea');
+ Route::get('llenarEstadosTarea','davidTareaController@llenarSelect');
+ Route::post('listarTarea','davidTareaController@listarTarea');
+
+ 
