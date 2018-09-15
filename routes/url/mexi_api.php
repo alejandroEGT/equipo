@@ -1,5 +1,3 @@
-<?php 
+<?php
 
-// Route::get('route', function(){
-	
-// });
+Route::post('/notifications', 'NotificationController@index');
