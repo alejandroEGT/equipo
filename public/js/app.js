@@ -55528,7 +55528,7 @@ exports = module.exports = __webpack_require__(21)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -55539,6 +55539,10 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -55577,6 +55581,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.unread = res.data.unread;
 				_this.unreadCount = res.data.unread.length;
 			});
+		},
+		readIt: function readIt(notification) {
+			var _this2 = this;
+
+			axios.post('/api/markAsRead', { id: notification.id }).then(function (res) {
+				_this2.unread.splice(notification, 1);
+				_this2.read.push(notification);
+				_this2.unreadCount--;
+			});
 		}
 	}
 });
@@ -55597,7 +55610,7 @@ var render = function() {
         { attrs: { trigger: "click" } },
         [
           _c("el-button", { attrs: { icon: "el-icon-bell", circle: "" } }, [
-            _vm._v("1")
+            _vm._v(_vm._s(_vm.unreadCount))
           ]),
           _vm._v(" "),
           _c(
@@ -55606,23 +55619,34 @@ var render = function() {
             [
               _vm._l(_vm.unread, function(item) {
                 return _c("el-dropdown-item", { key: item.id }, [
-                  _vm._v(
-                    "\n\t    " +
-                      _vm._s(item.data.updatedBy) +
-                      ' creo la tarea: "' +
-                      _vm._s(item.data.taskName) +
-                      '" en Projecto "' +
-                      _vm._s(item.data.project) +
-                      '"\n\t\t'
+                  _c(
+                    "span",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.readIt(item)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        _vm._s(item.updatedBy) +
+                          ' creo la tarea: "' +
+                          _vm._s(item.taskName) +
+                          '" en Projecto "' +
+                          _vm._s(item.project) +
+                          '"'
+                      )
+                    ]
                   )
                 ])
               }),
               _vm._v(" "),
-              _vm._l(_vm.read, function(item) {
-                return _c("el-dropdown-item", { key: item.id }, [
-                  _vm._v(_vm._s(item.data.taskName))
-                ])
-              })
+              _vm.unreadCount == 0
+                ? _c("el-dropdown-item", [
+                    _c("span", [_vm._v("No Tiene Notificaciones")])
+                  ])
+                : _vm._e()
             ],
             2
           )

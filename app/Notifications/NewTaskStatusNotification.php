@@ -18,9 +18,9 @@ class NewTaskStatusNotification extends Notification {
      *
      * @return void
      */
-    public function __construct(Tarea $task) {
+    public function __construct(Proyecto $pro, Tarea $task) {
         $this->task    = $task;
-        $this->project = Proyecto::find($task->id_proyecto)->get();
+        $this->project = $pro;
     }
 
     /**
@@ -42,8 +42,8 @@ class NewTaskStatusNotification extends Notification {
     public function toArray($notifiable) {
         return [
             'updatedBy' => auth()->user()->nombres,
-            'idProject' => $this->project[0]->id,
-            'project'   => $this->project[0]->nombre,
+            'idProject' => $this->project->id,
+            'project'   => $this->project->nombre,
             'taskName'  => $this->task->nombre,
         ];
     }

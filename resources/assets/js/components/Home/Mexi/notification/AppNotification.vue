@@ -2,12 +2,16 @@
 	
 	<el-row>
 		<el-dropdown trigger="click">
-		  <el-button icon="el-icon-bell" circle>1</el-button>
+		  <el-button icon="el-icon-bell" circle>{{ unreadCount }}</el-button>
 		  <el-dropdown-menu slot="dropdown">
 		    <el-dropdown-item v-for="item in unread" :key="item.id">
-		    {{ item.data.updatedBy}} creo la tarea: "{{ item.data.taskName }}" en Projecto "{{ item.data.project }}"
+		    <span @click="readIt(item)">{{ item.updatedBy}} creo la tarea: "{{ item.taskName }}" en Projecto "{{ item.project }}"</span>
 			</el-dropdown-item>
-		    <el-dropdown-item  v-for="item in read" :key="item.id">{{ item.data.taskName }}</el-dropdown-item>
+
+		    <el-dropdown-item  v-if="unreadCount == 0">
+		    	<span>No Tiene Notificaciones</span>
+		    </el-dropdown-item>
+		    
 		  </el-dropdown-menu>
 		</el-dropdown>
 	</el-row>
@@ -27,16 +31,25 @@
 			this.getNotifications()
 		},
 		methods:{
-			getNotifications(){
-				axios.post('/api/notifications')
-				.then(res => {
-					this.read = res.data.read
-					this.unread = res.data.unread
-					this.unreadCount = res.data.unread.length
-				})
+				getNotifications(){
+					axios.post('/api/notifications')
+					.then(res => {
+						this.read = res.data.read
+						this.unread = res.data.unread
+						this.unreadCount = res.data.unread.length
+					})
+				},
+				readIt(notification){
+					axios.post('/api/markAsRead',{id:notification.id})
+					.then(res => {
+						this.unread.splice(notification,1)
+						this.read.push(notification)
+						this.unreadCount --
+					})
+				},
+				
 			},
-		},
-	}
+		}
 </script>
 
 <style>

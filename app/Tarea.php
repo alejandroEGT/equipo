@@ -4,6 +4,7 @@ namespace App;
 
 use App\Colaborador;
 use App\Notifications\NewTaskStatusNotification;
+use App\Proyecto;
 use App\Tarea;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +26,8 @@ class Tarea extends Model {
 
             for ($i = 0; $i < count($findColabs); $i++) {
                 $user[$i] = User::find($findColabs[$i]->id_user);
-                $user[$i]->notify(new NewTaskStatusNotification($task));
+                $pro[$i]  = Proyecto::find($findColabs[$i]->id_proyecto);
+                $user[$i]->notify(new NewTaskStatusNotification($pro[$i], $task));
             }
 
             return 'success';
