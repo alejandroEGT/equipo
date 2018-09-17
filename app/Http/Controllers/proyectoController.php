@@ -109,7 +109,7 @@ class proyectoController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd("update");
     }
 
     /**
@@ -121,7 +121,12 @@ class proyectoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $p = Proyecto::where(['id_user' => Auth::user()->id, 'id' => $id ])->first();
+        $p->nombre = $request->nombre;
+        if ($p->save()) {
+            return "updated";
+        }
+        return "failed update!!";
     }
 
     /**

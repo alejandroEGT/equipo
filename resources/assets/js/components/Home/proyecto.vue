@@ -1,6 +1,17 @@
 <template>
 	<div v-loading="bloquear">
-		<center v-loading="titleLoad"><h3>Proyecto//{{ proyecto.nombre }}</h3>
+		<center v-loading="titleLoad"><h3>Proyecto//
+			<label v-if="click_edit_name">{{ proyecto.nombre }}</label>
+			<input class="miinput"
+			v-model='proyecto.nombre'
+			@keyup.enter="update_name"
+			v-if="click_edit_name == false" 
+			onfocus  >
+				
+			</input>
+			<el-button type="text" size="mini" @click="click_edit_name = !click_edit_name" icon="far fa-edit" ></el-button>
+
+		</h3>
 			({{proyecto.cliente}}), Estado:
 			<div class="btn-group">
 				  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -120,6 +131,8 @@
 	            fil_colabo:{},
 	            mis_colabo:{},
 	            bloquear:false,
+	            click_edit_name:true,
+	            update:{}
 	           	
 			}
 		},
@@ -197,7 +210,23 @@
 					this.colaborador = null;
 					this.contar_colabo();
 				});	
+			},
+			update_name(){
+				axios.put('api/proyecto/'+this.id_proyecto, {
+					nombre:	this.proyecto.nombre
+				} ).then((res)=>{
+					if (res.data = "updated") {
+						this.$message({
+				          message: 'Nombre poryecto actualizado.',
+				          type: 'success'
+				        });
+				        this.click_edit_name = true;
+					}
+					
+				})
+				
 			}
+
 			
 		},
 		mounted(){
@@ -205,3 +234,10 @@
 		}
 	}
 </script>
+<style type="text/css">
+	.miinput{
+		font-size: 18px;
+		width: 120px;
+
+	}
+</style>
