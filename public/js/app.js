@@ -56737,7 +56737,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			count_col: '',
 			colaborador: '',
 			fil_colabo: {},
-			mis_colabo: {}
+			mis_colabo: {},
+			bloquear: false
 
 		};
 	},
@@ -56754,6 +56755,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this = this;
 
 			axios.get('api/proyecto/' + this.id_proyecto).then(function (res) {
+				if (res.data.load == "true") {
+					_this.bloquear = true;
+				}
 				_this.proyecto = res.data.p;
 				_this.estado = res.data.estados;
 				console.log(_this.proyecto);
@@ -56840,6 +56844,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    {
+      directives: [
+        {
+          name: "loading",
+          rawName: "v-loading",
+          value: _vm.bloquear,
+          expression: "bloquear"
+        }
+      ]
+    },
     [
       _c(
         "center",
@@ -57297,35 +57311,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			espera: true,
-			ver: false,
-			arreglo: {},
-			form: {}
+			tareas: {},
+			form: { idProyecto: this.$route.params.id, idUser: this.$auth.user().id },
+			estados: {}
+			//idProyecto:this.$route.params.id,
+			//idUser:this.$auth.user().id,
 		};
 	},
 	created: function created() {
-
-		this.api();
+		this.listarTarea();
+		this.llenarSelect();
 	},
 
 
 	methods: {
 		guardarTarea: function guardarTarea() {
-			console.log(this.form);
-		},
-		get: function get() {
-			alert(this.titulo3);
-		},
-		api: function api() {
 			var _this = this;
 
-			axios.get("api/david").then(function (rest) {
-				_this.arreglo = rest.data;
-				_this.espera = false;
+			axios.post("api/insertarTarea", this.form).then(function (rest) {
+				_this.listarTarea();
+			});
+		},
+		llenarSelect: function llenarSelect() {
+			var _this2 = this;
+
+			axios.get("api/llenarEstadosTarea").then(function (rest) {
+				_this2.estados = rest.data;
+			});
+		},
+		listarTarea: function listarTarea() {
+			var _this3 = this;
+
+			axios.post("api/listarTarea", {
+				idProyecto: this.$route.params.id,
+				idUser: this.$auth.user().id
+			}).then(function (rest) {
+				_this3.tareas = rest.data;
 			});
 		}
 	}
@@ -57402,20 +57441,12 @@ var render = function() {
                     expression: "form.estadoProyecto"
                   }
                 },
-                [
-                  _c("el-option", {
-                    attrs: { label: "En Desarrollo", value: "enDesarrollo" }
-                  }),
-                  _vm._v(" "),
-                  _c("el-option", {
-                    attrs: { label: "Terminada", value: "Terminada" }
-                  }),
-                  _vm._v(" "),
-                  _c("el-option", {
-                    attrs: { label: "No Iniciada", value: "noIniciada" }
+                _vm._l(_vm.estados, function(t) {
+                  return _c("el-option", {
+                    key: t.id,
+                    attrs: { label: t.estado, value: t.id }
                   })
-                ],
-                1
+                })
               )
             ],
             1
@@ -57427,12 +57458,48 @@ var render = function() {
           })
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "table",
+        { staticClass: "table table-borded" },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _vm._l(_vm.tareas, function(t) {
+            return _c("tr", [
+              _c("td", [_vm._v(_vm._s(t.nombre))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(t.fecha_inicio))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(t.fecha_fin))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(t.horas_estimadas))])
+            ])
+          })
+        ],
+        2
       )
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", [_vm._v("Nombre")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Fecha Inicio")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Fecha Fin")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Horas Estimadas")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

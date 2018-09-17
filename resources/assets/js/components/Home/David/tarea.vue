@@ -10,49 +10,73 @@
 
         <el-form-item>
           <el-select v-model="form.estadoProyecto" placeholder="Seleccione">
-            <el-option label="En Desarrollo" value="enDesarrollo"></el-option>
-            <el-option label="Terminada" value="Terminada"></el-option>
-            <el-option label="No Iniciada" value="noIniciada"></el-option>
+            <el-option v-for="t in estados" :label="t.estado" :value="t.id" :key="t.id"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-button @click=guardarTarea type="primary" icon="el-icon-edit" circle></el-button>
+        <el-button @click="guardarTarea" type="primary" icon="el-icon-edit" circle></el-button>
 
 		</el-form>
+
+		<table class="table table-borded">
+			<tr>
+				<td>Nombre</td>
+				<td>Fecha Inicio</td>
+				<td>Fecha Fin</td>
+				<td>Horas Estimadas</td>
+			</tr>
+			<tr v-for="t in tareas">
+				<td>{{t.nombre}}</td>
+				<td>{{t.fecha_inicio}}</td>
+				<td>{{t.fecha_fin}}</td>
+				<td>{{t.horas_estimadas}}</td>
+			</tr>
+		</table>
+
 	</div>
 </template>
 
 <script>
 	export default{
-					data(){
-						return{
-							espera:true,
-							ver:false,
-							arreglo:{},
-							form:{}
-						}
-					},
+		data(){
+			return{
+				tareas:{},
+				form:{idProyecto:this.$route.params.id,idUser:this.$auth.user().id,},
+				estados:{},
+				//idProyecto:this.$route.params.id,
+				//idUser:this.$auth.user().id,
+			}
+		},
 
-					created(){
-						
-						this.api()
-					},
+		created(){
+			this.listarTarea()
+			this.llenarSelect()
+		},
 
-					methods:{
+		methods:{
 
-           guardarTarea(){
-              console.log(this.form)
+   			guardarTarea(){
+       	        axios.post("api/insertarTarea", this.form).then((rest)=>{
+					this.listarTarea();
+	            });
+
             },
 
-						get(){
-						alert(this.titulo3)
-						},
-						api(){
-							axios.get("api/david").then((rest)=>{
-								this.arreglo = rest.data;
-								this.espera = false;
-							});
-						}
-					}
-				}
+			llenarSelect(){
+				axios.get("api/llenarEstadosTarea").then((rest)=>{
+					this.estados = rest.data;
+				});
+				
+			},
+			listarTarea(){
+				axios.post("api/listarTarea", 
+					{
+						idProyecto:this.$route.params.id,
+						idUser:this.$auth.user().id,
+					}).then((rest)=>{
+						this.tareas = rest.data;
+				});
+			},
+		}
+	}
 </script>

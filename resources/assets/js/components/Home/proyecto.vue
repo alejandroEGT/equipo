@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-loading="bloquear">
 		<center v-loading="titleLoad"><h3>Proyecto//{{ proyecto.nombre }}</h3>
 			({{proyecto.cliente}}), Estado:
 			<div class="btn-group">
@@ -119,6 +119,7 @@
 	            colaborador:'',
 	            fil_colabo:{},
 	            mis_colabo:{},
+	            bloquear:false,
 	           	
 			}
 		},
@@ -134,6 +135,9 @@
 			
 			traer_proyecto(){
 				axios.get('api/proyecto/'+this.id_proyecto).then((res)=>{
+					if (res.data.load == "true"){
+						this.bloquear = true;
+					}
 					this.proyecto = res.data.p;
 					this.estado = res.data.estados;
 					console.log(this.proyecto)

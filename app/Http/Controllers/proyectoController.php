@@ -81,13 +81,23 @@ class proyectoController extends Controller
      */
     public function show($id)
     {
+        $load = "false";
+        $verify_user = Colaborador::where([
+            'id_proyecto' => $id,
+            'id_user' => Auth::user()->id,
+            'delete' => 1
+        ])->first();
+        if ($verify_user) {
+            $load = "true";
+        }
         $p = Proyecto::join('estado_proyecto as ep','ep.id','proyecto.estado')
         ->where('proyecto.id',$id)->first();
     
         $estados = DB::table('estado_proyecto')->where('estado','!=', $p->estado)->get();
         return [
             'p' => $p,
-            'estados' => $estados
+            'estados' => $estados,
+            'load' => $load
         ];
     }
 
