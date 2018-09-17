@@ -18,10 +18,12 @@
            <li class="nav-item">
             <router-link style="color:white" :to="{name:'Felipe'}" class="nav-link">Felipe</router-link>
           </li>
+          
           <li class="nav-item">
             <button @click="logout" >Salir</button>
           </li>
         </ul>	
+        <app-notification></app-notification>
       </nav>
 <nav class="navbar-primary">
   <!-- <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left">kkck</span></a> -->
@@ -112,7 +114,9 @@
 </template>
 
 <script type="text/javascript">
+import AppNotification from './Mexi/notification/AppNotification'
   export default{
+    components:{AppNotification},
     data(){
       return{
         project:{},

@@ -2,11 +2,10 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use Notifiable;
 
     /**
@@ -26,24 +25,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function setNombresAttribute($nombres)
-    {
+    public function setNombresAttribute($nombres) {
         $this->attributes['nombres'] = ucfirst($nombres);
     }
-    public function setApellidosAttribute($apellidos)
-    {
+    public function setApellidosAttribute($apellidos) {
         $this->attributes['apellidos'] = ucfirst($apellidos);
     }
-    public function setNicknameAttribute($nickname)
-    {
+    public function setNicknameAttribute($nickname) {
         $this->attributes['nickname'] = ucfirst($nickname);
     }
-    public function setPasswordAttribute($password)
-    {
+    public function setPasswordAttribute($password) {
         $this->attributes['password'] = bcrypt($password);
     }
-    public function setNacimientoAttribute($nacimiento)
-    {
-        $this->attributes['nacimiento'] = date( 'Y-m-d', strtotime( $nacimiento ) );
+    public function setNacimientoAttribute($nacimiento) {
+        $this->attributes['nacimiento'] = date('Y-m-d', strtotime($nacimiento));
     }
 }
