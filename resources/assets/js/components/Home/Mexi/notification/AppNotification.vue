@@ -28,7 +28,13 @@
 			}
 		},
 		created(){
-			this.getNotifications()
+			this.getNotifications();
+
+			Echo.private('App.User.' + this.$auth.user().id)
+		    .notification((notification) => {
+		        this.unread.unshift(notification)
+				this.unreadCount ++
+		    });
 		},
 		methods:{
 				getNotifications(){

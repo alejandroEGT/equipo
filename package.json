@@ -23,7 +23,10 @@
     "@fortawesome/fontawesome": "^1.1.4",
     "@websanova/vue-auth": "^2.21.14-beta",
     "axios": "^0.18.0",
+    "dhtmlx-gantt": "^5.2.0",
     "element-ui": "^2.4.5",
+    "laravel-echo": "^1.4.0",
+    "pusher-js": "^4.3.1",
     "vue-axios": "^2.0.2",
     "vue-router": "^3.0.1"
   }

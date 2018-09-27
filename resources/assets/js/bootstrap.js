@@ -21,7 +21,7 @@ try {
  */
 
 window.axios = require('axios');
-
+const JwtToken = `Bearer ${localStorage.getItem('default_auth_token')}`
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
@@ -44,13 +44,18 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo'
+import Echo from 'laravel-echo'
 
-// window.Pusher = require('pusher-js');
+window.Pusher = require('pusher-js');
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: "f9d56b2a22efa95a0b7e",
+    cluster: "us2",
+    encrypted: true,
+    auth:{
+    	headers:{
+    		Authorization : JwtToken
+    	}
+    }
+});

@@ -94,6 +94,13 @@
 			      <!--<router-link :to="{path:'/proyecto/'+id_proyecto+'/flujo'}" class="btn btn-link">Flujo</router-link>-->
 			     
 			    </div>
+			    <div class="navbar-nav">
+			     
+			      <router-link :to="{path:'/proyecto/'+id_proyecto+'/flujo'}" class="btn btn-default btn-lg active">		Flujo
+			      </router-link>
+			      <!--<router-link :to="{path:'/proyecto/'+id_proyecto+'/flujo'}" class="btn btn-link">Flujo</router-link>-->
+			     
+			    </div>
 			  </div>
 			</nav>
 		<br>

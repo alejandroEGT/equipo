@@ -7,7 +7,7 @@ import Home from "../components/Home/Home";
 import Bryanv from "../components/Home/bryanv";
 import Proyecto from "../components/Home/proyecto"
 import Tarea from "../components/Home/David/tarea"
-import Flujo from "../components/Home/Mexi/flujo"
+import Flujo from "../components/Home/mexi/gantt/gantt";
 
 const url_proy = '/proyecto/:id/';
 

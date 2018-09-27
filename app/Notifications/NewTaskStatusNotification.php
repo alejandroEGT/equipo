@@ -5,6 +5,7 @@ namespace App\Notifications;
 use App\Proyecto;
 use App\Tarea;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class NewTaskStatusNotification extends Notification {
@@ -30,7 +31,7 @@ class NewTaskStatusNotification extends Notification {
      * @return array
      */
     public function via($notifiable) {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -48,11 +49,12 @@ class NewTaskStatusNotification extends Notification {
         ];
     }
 
-/*    public function toBroadcast($notifiable) {
-return new BroadcastMessage([
-'updatedBy' => auth()->user()->nombres,
-'project'   => $this->project[0]->nombre,
-'taskName'  => $this->task->nombre, ,
-]);
-}*/
+    public function toBroadcast($notifiable) {
+        return new BroadcastMessage([
+            'updatedBy' => auth()->user()->nombres,
+            'idProject' => $this->project->id,
+            'project'   => $this->project->nombre,
+            'taskName'  => $this->task->nombre,
+        ]);
+    }
 }

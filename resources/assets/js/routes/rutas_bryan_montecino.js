@@ -6,6 +6,8 @@ import Home from "../components/Home/Home";
 
 import Bryanm from "../components/Home/mexi";
 
+import AppGannt from "../components/Home/mexi/gantt/gantt";
+
 let routes_mexi = [
 
 {
@@ -15,8 +17,8 @@ let routes_mexi = [
     iconCls: 'el-icon-message',
     meta: {auth: true},
     children: [
-        //{ path: '/index', component: Index, name: 'Index' },
-        { path: '/bryanm', component: Bryanm, name: 'Bryanm' },
+        //{ path: '/appgantt', component: AppGannt, name: 'AppGannt' },
+        { path: '/bryanm', component: AppGannt, name: 'Bryanm' },
     ]
 },
 {

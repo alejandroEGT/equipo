@@ -1,5 +1,13 @@
 <template>
-	<div>
-		<h4>Flujo</h4>
-	</div>
+  <h3>d</h3>
 </template>
+
+<script>
+  export default{
+
+  }
+</script>
+
+<style>
+  
+</style>
